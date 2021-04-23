@@ -83,9 +83,9 @@ describe('placement.js', () => {
 })
 
 function createHero () {
-  const heroEl = document.createElement('div')
-  heroEl.className = 'hero'
-  heroEl.innerHTML = `<a/>`
-  document.body.append(heroEl)
-  return heroEl
+  const el = document.createElement('div')
+  el.className = 'hero'
+  el.innerHTML = `<a/>`
+  document.body.append(el)
+  return el
 }
