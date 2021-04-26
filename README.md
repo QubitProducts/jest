@@ -8,7 +8,7 @@ A jest transform to facilitate testing clientside implementations within the qub
 
 ```
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage"
   },
   "jest": {
     "transform": {
