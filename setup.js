@@ -1,3 +1,4 @@
+/* globals jest */
 /* istanbul ignore file */
 const Promise = require('sync-p/extra')
 const poller = require('@qubit/poller')
@@ -61,7 +62,7 @@ module.exports = function setup (overrides) {
 function createPoller (logger) {
   return function poll (targets, options) {
     if (typeof options !== 'function') {
-      options = _.assign(
+      options = Object.assign(
         {
           logger,
           stopOnError: true
