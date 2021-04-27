@@ -1,8 +1,9 @@
+/* globals beforeEach afterEach test describe expect */
 const renderPlacement = require('./placement')
 const setup = require('../setup')
 
 describe('placement.js', () => {
-  let content, api, teardown, el
+  let content, api, teardown
 
   beforeEach(() => {
     ;({ api, teardown } = setup({ elements: [createHero()] }))
