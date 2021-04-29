@@ -4,7 +4,8 @@ A jest transform to facilitate testing clientside implementations within the qub
 
 ## usage
 
-1. Add this to your package.json
+1. Install with `npm install --save-dev @qubit/jest jest@^26`
+2. Add this to your package.json
 
 ```
   "scripts": {
@@ -14,14 +15,11 @@ A jest transform to facilitate testing clientside implementations within the qub
     "transform": {
       "^.+\\.js$": "@qubit/jest"
     }
-  },
-  "devDependencies": {
-    "jest": "^26.6.3"
   }
 ```
 
-2. Run `npm install`
 3. Create a `test/placement.test.js` file
+   You can import the setup tools with `const setup = require('@qubit/jest/setup')`
 4. Run your test suite with `npm test`
 
 ## example
