@@ -18,10 +18,9 @@ A jest transform to facilitate testing clientside implementations within the qub
   }
 ```
 
-3. Run `npm install`
-4. Create a `test/placement.test.js` file
+3. Create a `test/placement.test.js` file
    You can import the setup tools with `const setup = require('@qubit/jest/setup')`
-5. Run your test suite with `npm test`
+4. Run your test suite with `npm test`
 
 ## example
 
