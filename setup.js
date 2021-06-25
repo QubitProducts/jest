@@ -1,9 +1,25 @@
-/* globals jest */
+/* globals jest beforeAll */
 /* istanbul ignore file */
+const { readFile } = require('fs')
 const Promise = require('sync-p/extra')
 const poller = require('@qubit/poller')
+const { render } = require('less')
 const getBrowserState = require('@qubit/jolt/lib/getBrowserState')
+const addStylesheet = require('@qubit/add-stylesheet')
 const path = require('path')
+let css
+
+beforeAll(cb => {
+  readFile(path.join(process.cwd(), 'placement.less'), (err, data) => {
+    return err
+      ? cb()
+      : render(String(data))
+          .then(output => {
+            css = output.css
+          })
+          .then(cb, cb)
+  })
+})
 
 module.exports = function setup (overrides) {
   const log = {
@@ -11,6 +27,7 @@ module.exports = function setup (overrides) {
     info: jest.fn(),
     error: jest.fn()
   }
+  const styles = addStylesheet(css || '')
   const cleanups = []
   const packageJson = getJson('package.json')
   const content = getJson('payload.json')
@@ -43,6 +60,7 @@ module.exports = function setup (overrides) {
         vertical,
         visitorId
       },
+      styles,
       poll: createPoller(log),
       uv: {
         emit: jest.fn(),
