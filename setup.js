@@ -12,7 +12,8 @@ module.exports = function setup (overrides) {
     error: jest.fn()
   }
   const cleanups = []
-  const packageJson = getPkgJson()
+  const packageJson = getJson('package.json')
+  const content = getJson('payload.json')
   const {
     placementId,
     trackingId,
@@ -26,7 +27,7 @@ module.exports = function setup (overrides) {
   return {
     api: {
       elements: [],
-      content: null,
+      content,
       onRemove: cleanup => cleanups.push(cleanup),
       onImpression: jest.fn(),
       onClickthrough: jest.fn(),
@@ -74,9 +75,9 @@ function createPoller (logger) {
   }
 }
 
-function getPkgJson () {
+function getJson (filename) {
   try {
-    return require(path.join(process.cwd(), 'package.json'))
+    return require(path.join(process.cwd(), filename))
   } catch (err) {
     return {}
   }
