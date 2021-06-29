@@ -13,7 +13,7 @@ A jest transform to facilitate testing clientside implementations within the qub
   },
   "jest": {
     "transform": {
-      "^.+\\.js$": "@qubit/jest"
+      ".*(.js|.css|.less)$": "@qubit/jest"
     }
   }
 ```
