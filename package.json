@@ -20,7 +20,7 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.js?$": "./index.js"
+      ".*$": "./index.js"
     }
   },
   "devDependencies": {
