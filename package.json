@@ -21,7 +21,8 @@
   "jest": {
     "transform": {
       ".*$": "./index.js"
-    }
+    },
+    "transformIgnorePatterns": []
   },
   "devDependencies": {
     "@qubit/utils": "^1.1.0",
