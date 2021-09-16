@@ -20,8 +20,9 @@
   },
   "jest": {
     "transform": {
-      ".*$": "./index.js"
-    }
+      ".*(.js|.css|.less)$": "@qubit/jest"
+    },
+    "transformIgnorePatterns": []
   },
   "devDependencies": {
     "@qubit/utils": "^1.1.0",

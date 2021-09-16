@@ -14,7 +14,8 @@ A jest transform to facilitate testing clientside implementations within the qub
   "jest": {
     "transform": {
       ".*(.js|.css|.less)$": "@qubit/jest"
-    }
+    },
+    "transformIgnorePatterns": []
   }
 ```
 
