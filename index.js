@@ -1,6 +1,7 @@
 const path = require('path')
 const buble = require('@qubit/buble')
 const less = require('less')
+const babel = require('@babel/core')
 
 module.exports = {
   process: function process (src, filename) {
@@ -17,7 +18,13 @@ module.exports = {
 }
 
 function transformJs (src) {
-  return buble.transform(src, {
+  const transpiled = babel.transformSync(src, {
+    // Overrides default Babel behaviour to resolve plugins relative
+    // to the file being transformed
+    configFile: path.resolve(__dirname, 'babel.config.json')
+  }).code
+
+  return buble.transform(transpiled, {
     transforms: {
       dangerousForOf: true,
       dangerousTaggedTemplateString: true
