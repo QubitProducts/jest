@@ -9,7 +9,7 @@ module.exports = {
         return transformJs(src)
       case '.css':
       case '.less':
-        return transformCss(src)
+        return transformCss(src, filename)
       default:
         return src
     }
@@ -26,9 +26,9 @@ function transformJs (src) {
   }).code
 }
 
-function transformCss (src) {
+function transformCss (src, filename) {
   let code
-  less.render(src, { sync: true }, (_, result) => {
+  less.render(src, { filename }, (_, result) => {
     code = result.css
   })
   code = `module.exports = require('@qubit/add-stylesheet')(
