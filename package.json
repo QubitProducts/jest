@@ -20,7 +20,7 @@
   },
   "jest": {
     "transform": {
-      ".*(.js|.css|.less)$": "@qubit/jest"
+      ".*(.js|.css|.less)$": "./index.js"
     },
     "transformIgnorePatterns": []
   },
