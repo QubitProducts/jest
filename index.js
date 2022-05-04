@@ -20,7 +20,8 @@ function transformJs (src) {
   return buble.transform(src, {
     transforms: {
       dangerousForOf: true,
-      dangerousTaggedTemplateString: true
+      dangerousTaggedTemplateString: true,
+      asyncAwait: false
     },
     objectAssign: 'Object.assign'
   }).code
