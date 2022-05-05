@@ -4,15 +4,15 @@ const { render } = require('less')
 const poller = require('@qubit/poller')
 
 module.exports = {
-  getRoot,
-  getCss,
-  getJson,
+  getRoot: memo(getRoot),
+  getCss: memo(getCss),
+  getJson: memo(getJson),
   createPoller,
   getCookieDomain
 }
 
-function getRoot (module) {
-  return module ? path.dirname(module.filename) : process.cwd()
+function getRoot (filename) {
+  return filename ? path.dirname(filename) : process.cwd()
 }
 
 function getCss (path) {
@@ -20,6 +20,14 @@ function getCss (path) {
     const rawCss = String(readFileSync(path))
     return lessRenderSync(rawCss)
   } catch (err) {}
+}
+
+function getJson (path) {
+  try {
+    return require(path)
+  } catch (err) {
+    return {}
+  }
 }
 
 function lessRenderSync (input) {
@@ -46,15 +54,6 @@ function createPoller (logger) {
   }
 }
 
-function getJson (module, filename) {
-  const root = getRoot(module)
-  try {
-    return require(path.join(root, filename))
-  } catch (err) {
-    return {}
-  }
-}
-
 function getCookieDomain (domains, currentHost) {
   currentHost = currentHost || window.location.hostname
 
@@ -73,4 +72,16 @@ function regexify (domain) {
 
 function removeLeadingDot (domain) {
   return domain.replace(/^\./, '')
+}
+
+function memo (fn) {
+  const cache = new Map()
+  return (...args) => {
+    const [key] = args
+    if (cache.has(key)) {
+      return cache.get(key)
+    }
+    const result = fn(...args)
+    return result
+  }
 }

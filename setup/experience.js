@@ -13,12 +13,14 @@ const {
 } = require('./lib/helpers')
 
 module.exports = function setup (overrides, module) {
+  const filename = module && module.filename
+  const root = getRoot(filename)
   const log = {
     trace: jest.fn(),
     info: jest.fn(),
     error: jest.fn()
   }
-  const packageJson = getJson(module, 'package.json')
+  const packageJson = getJson(path.join(root, 'package.json'))
   const {
     experienceId,
     iterationId,
@@ -38,7 +40,7 @@ module.exports = function setup (overrides, module) {
   let css
   try {
     if (module) {
-      css = getVariationCss(module, variationMasterId)
+      css = getVariationCss(filename, variationMasterId)
     }
   } catch (err) {}
 
@@ -112,16 +114,16 @@ module.exports = function setup (overrides, module) {
   }
 }
 
-function getVariationCss (module, variationMasterId) {
+function getVariationCss (filename, variationMasterId) {
   const paths = []
 
   if (variationMasterId) {
-    const root = getRoot(module)
+    const root = getRoot(filename)
     paths.push(path.join(root, `variation-${variationMasterId}.less`))
   }
 
-  if (module && /variation-\d+/.test(module.filename)) {
-    paths.push(module.filename.replace(/(\.test)?\.js/, '.less'))
+  if (filename && /variation-\d+/.test(filename)) {
+    paths.push(filename.replace(/(\.test)?\.js/, '.less'))
   }
 
   for (const filePath of paths) {

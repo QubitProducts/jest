@@ -13,9 +13,10 @@ const {
 } = require('./lib/helpers')
 
 module.exports = function setup (overrides, module) {
+  const filename = module && module.filename
+  const root = getRoot(filename)
   let css
   try {
-    const root = getRoot(module)
     const lessFilePath = path.join(root, 'placement.less')
     css = getCss(lessFilePath)
   } catch (err) {}
@@ -26,8 +27,8 @@ module.exports = function setup (overrides, module) {
   }
   const styles = addStylesheet(css || '')
   const cleanups = [styles.remove]
-  const packageJson = getJson(module, 'package.json')
-  const content = getJson(module, 'payload.json')
+  const packageJson = getJson(path.join(root, 'package.json'))
+  const content = getJson(path.join(root, 'payload.json'))
   const {
     placementId,
     trackingId,
