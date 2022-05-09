@@ -1,17 +1,18 @@
-/* globals beforeEach afterEach test describe expect */
+const { it, expect, beforeEach, afterEach, describe } = require('@jest/globals')
 const renderPlacement = require('./placement')
-const setup = require('../setup')
+const setup = require('../../setup/placement')
 
 describe('placement.js', () => {
   let content, api, teardown
 
   beforeEach(() => {
-    ;({ api, teardown } = setup({ elements: [createHero()] }))
+    ;({ api, teardown } = setup({ elements: [createHero()] }, module))
   })
 
   afterEach(() => {
     teardown()
     document.body.innerHTML = ''
+    document.head.innerHTML = ''
   })
 
   describe('with content', () => {
@@ -22,7 +23,7 @@ describe('placement.js', () => {
       }
     })
 
-    test('updates the banner image', () => {
+    it('updates the banner image', () => {
       renderPlacement({ ...api, content })
 
       expect(document.querySelector('.hero').style.backgroundImage).toEqual(
@@ -30,28 +31,30 @@ describe('placement.js', () => {
       )
     })
 
-    test('renders the message', () => {
+    it('renders the message', () => {
       renderPlacement({ ...api, content })
 
       expect(document.querySelector('.hero').innerHTML).toEqual(
         expect.stringContaining(content.message)
       )
+
+      expect(window.getComputedStyle(document.body).background).toEqual('black')
     })
 
-    test('calls onImpression', () => {
+    it('calls onImpression', () => {
       renderPlacement({ ...api, content })
 
       expect(api.onImpression.mock.calls.length).toBe(1)
     })
 
-    test('calls onClickthrough', () => {
+    it('calls onClickthrough', () => {
       renderPlacement({ ...api, content })
 
       document.querySelector('.hero a').click()
       expect(api.onClickthrough.mock.calls.length).toBe(1)
     })
 
-    test('cleans up after itself', () => {
+    it('cleans up after itself', () => {
       renderPlacement({ ...api, content })
 
       const el = document.querySelector('.hero').parentElement
@@ -68,13 +71,13 @@ describe('placement.js', () => {
       content = null
     })
 
-    test('calls onImpression', () => {
+    it('calls onImpression', () => {
       renderPlacement({ ...api, content })
 
       expect(api.onImpression.mock.calls.length).toBe(1)
     })
 
-    test('calls onClickthrough', () => {
+    it('calls onClickthrough', () => {
       renderPlacement({ ...api, content })
 
       document.querySelector('.hero a').click()
