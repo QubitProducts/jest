@@ -1,3 +1,3 @@
 module.exports = function variation (options) {
-  return new Promise(resolve => resolve(true))
+  return Promise.resolve(true)
 }
