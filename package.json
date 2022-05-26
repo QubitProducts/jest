@@ -24,6 +24,11 @@
     },
     "transformIgnorePatterns": []
   },
+  "healthier": {
+    "globals": [
+      "jest"
+    ]
+  },
   "devDependencies": {
     "@qubit/utils": "^1.1.0",
     "healthier": "^4.0.0",
