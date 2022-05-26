@@ -33,6 +33,7 @@ A jest transform to facilitate testing clientside implementations within the qub
     "test": "jest --coverage"
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "transform": {
       ".*(.js|.css|.less)$": "@qubit/jest"
     },

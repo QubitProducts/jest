@@ -1,5 +1,4 @@
 /* istanbul ignore file */
-const { jest } = require('@jest/globals')
 const Promise = require('sync-p/extra')
 const getBrowserState = require('@qubit/jolt/lib/getBrowserState')
 const addStylesheet = require('@qubit/add-stylesheet')
