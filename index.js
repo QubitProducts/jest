@@ -19,6 +19,7 @@ module.exports = {
 function transformJs (src) {
   return buble.transform(src, {
     transforms: {
+      asyncAwait: false,
       dangerousForOf: true,
       dangerousTaggedTemplateString: true
     },
